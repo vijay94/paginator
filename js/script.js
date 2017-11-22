@@ -73,15 +73,19 @@ var Paginate = Class.extend({
     links : 5,
     total : 200,
     url : '/',
+    nextPage : '>',
+    prevPage : '<',
+    firstPage : '<<',
+    lastPage : '>>',
   },
   init: function(option){
     $.extend( this.options, option );
+    this.options.url = this.options.url.replace(/[&?]page=[0-9]*/ig, "");
     if(this.options.url.includes("?")){
       this.options.url += '&';
     }else{
       this.options.url += '?';
     }
-    this.options.url = this.options.url.replace(/[&?]page=[0-9]*/ig, "");
     this.consrtruct();
   },
 
@@ -109,8 +113,8 @@ var Paginate = Class.extend({
      }
 
      if(this.options.page > (halfOfLink + 1) && start!=1){
-       paginateHtml += '<a href="'+this.options.url+"page=1"+'"><li class="'+this.options.class+'"> << </li></a> ';
-       paginateHtml += '<a href="'+this.options.url+'page='+(this.options.page-1)+'"><li class="'+this.options.class+'"> < </li></a> ';
+       paginateHtml += '<a href="'+this.options.url+"page=1"+'"><li class="'+this.options.class+'"> '+this.options.firstPage+' </li></a> ';
+       paginateHtml += '<a href="'+this.options.url+'page='+(this.options.page-1)+'"><li class="'+this.options.class+'"> '+this.options.prevPage+' </li></a> ';
      }
 
      for (var i = start; i <= end; i++) {
@@ -122,8 +126,8 @@ var Paginate = Class.extend({
      }
 
      if((noOfPages - Math.floor(this.options.links/2) ) > this.options.page && end!=noOfPages){
-       paginateHtml += '<a href="'+this.options.url+'page='+(this.options.page+1)+'"><li class="'+this.options.class+'"> > </li></a> ';
-       paginateHtml += '<a href="'+this.options.url+"page="+noOfPages+'"><li class="'+this.options.class+'"> >> </li></a> ';
+       paginateHtml += '<a href="'+this.options.url+'page='+(this.options.page+1)+'"><li class="'+this.options.class+'"> '+this.options.nextPage+' </li></a> ';
+       paginateHtml += '<a href="'+this.options.url+"page="+noOfPages+'"><li class="'+this.options.class+'"> '+this.options.lastPage+' </li></a> ';
      }
      paginateHtml += '</ul>';
      $(this.options.selector).html(paginateHtml);

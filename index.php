@@ -32,6 +32,10 @@
         links : 5, //no of links to be shown (preferably odd number)
         total : 2000, //total number of results
         url : pageUrl, // where the links in pagination to be redirected
+        nextPage : 'Next',
+        prevPage : 'Prev',
+        firstPage : '<<',
+        lastPage : '>>',
       });
     });
   </script>
