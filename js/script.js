@@ -130,6 +130,11 @@ var Paginate = Class.extend({
        paginateHtml += '<a href="'+this.options.url+"page="+noOfPages+'"><li class="'+this.options.class+'"> '+this.options.lastPage+' </li></a> ';
      }
      paginateHtml += '</ul>';
+
+     var showingFrom = (this.options.page - 1) * this.options.limit;
+     var showingTo = ((this.options.page * this.options.limit) < this.options.total) ? (this.options.page * this.options.limit) : this.options.total;
+     paginateHtml += '<p>Showing results from '+showingFrom+' to '+showingTo+' of '+this.options.total+'.</p>';
+
      $(this.options.selector).html(paginateHtml);
   }
 });
